@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarHub - Diecast Exchange Platform</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary-black: #050505;
+            --secondary-dark: #1A1A1A;
+            --card-bg: #252525;
+            --accent-orange: #FFB300; /* Warna Orange/Emas sesuai UI Aplikasi */
+            --accent-hover: #e6a100;
+            --text-white: #FFFFFF;
+            --text-gray: #B0B0B0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- NAVBAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: rgba(5, 5, 5, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0; /* Reset padding jika ada */
+        }
+
+        .logo img {
+            height: 50px; /* Tinggi logo disesuaikan agar pas di navbar */
+            width: auto;  /* Lebar menyesuaikan otomatis biar tidak gepeng */
+            object-fit: contain; /* Memastikan logo tampil utuh */
+        }
+        .logo span { color: var(--text-white); }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent-orange); }
+
+        .btn-download {
+            background-color: var(--accent-orange);
+            color: var(--primary-black);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            background-color: var(--accent-hover);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 5%;
+            min-height: 90vh;
+            background: linear-gradient(135deg, var(--primary-black) 0%, #1a0f00 100%);
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: var(--accent-orange);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+         .store-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: #1A1A1A;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Pengaturan Gambar Logo di dalam Tombol */
+        .store-btn img {
+            width: 32px;  /* Lebar logo */
+            height: 32px; /* Tinggi logo */
+            object-fit: contain; /* Pastikan logo tampil utuh, tidak kepotong */
+        }
+
+        .store-btn:hover {
+            border-color: #FFB300;
+        }
+
+        .store-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .store-btn:hover {
+            border-color: #FFB300;
+        }
+
+        /* Atur Ukuran Logo Apple */
+        .store-btn i.fa-apple {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        /* Atur Ukuran Logo Google Play (SVG) */
+        .store-btn svg {
+            width: 32px; /* Ukuran disesuaikan */
+            height: 32px;
+            flex-shrink: 0; /* Agar logo tidak gepeng */
+        }
+
+        .store-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        
+        .store-text span { font-size: 0.75rem; font-weight: 300; }
+        .store-text strong { font-size: 1.1rem; font-weight: 600; }
+        .store-btn .fa-google-play {
+            /* Warna gradasi sesuai brand asli Google */
+            background: linear-gradient(to bottom left, #4285F4, #EA4335, #FBBC05, #34A853);
+            
+            /* Teknik memotong background mengikuti bentuk icon */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            
+            display: inline-block; /* Wajib ada agar gradient berfungsi */
+        }
+
+        /* Hover Effect: Border jadi warna brand saat disentuh */
+        .store-btn:hover .fa-apple {
+            color: #e0e0e0;
+        }
+
+        .store-btn:hover { border-color: var(--accent-orange); }
+
+        .store-btn i {
+            font-size: 1.8rem; /* Ukuran icon diperbesar sedikit biar jelas */
+        }
+        .store-btn .fa-apple {
+            color: #ffffff;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3)); /* Sedikit glow biar premium */
+        }
+        .store-text { display: flex; flex-direction: column; font-size: 0.8rem; line-height: 1.2; }
+        .store-text strong { font-size: 1rem; }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Mockup HP Style CSS Only */
+
+
+        .phone-mockup {
+            width: 310px;  /* Lebar HP */
+            height: 630px; /* Tinggi HP */
+            background-color: #050505; /* Warna Bezel/Pinggiran HP */
+            border-radius: 45px; /* Kelengkungan HP Luar */
+            border: 4px solid #333; /* Garis pinggir abu-abu tipis */
+            position: relative;
+            
+            /* INI KUNCI PERBAIKANNYA: */
+            /* Kita kasih jarak (padding) supaya gambar tidak kena potong sudut HP */
+            padding: 12px; 
+            
+            box-shadow: 0 0 60px rgba(255, 179, 0, 0.25); /* Glow effect */
+            box-sizing: border-box; /* Agar padding tidak merusak ukuran total */
+        }
+
+        .phone-notch {
+            width: 120px;
+            height: 25px;
+            background-color: #1a1a1a;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 10; /* Poni ada di atas gambar */
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            border-radius: 35px; /* Kelengkungan Layar Dalam */
+            overflow: hidden; /* Potong gambar yang keluar dari layar dalam */
+            position: relative;
+        }
+
+        .phone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; /* Paksa gambar pas ke layar */
+            display: block;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            /* Ganti URL ini dengan gambar Home Screen kamu */
+            background: url('https://via.placeholder.com/300x600/000000/FFFFFF?text=Home+Screen+UI') center/cover no-repeat;
+        }
+
+        /* --- FEATURES SECTION --- */
+        .features {
+            padding: 80px 5%;
+            background-color: var(--secondary-dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header span {
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            transition: transform 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-orange);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 179, 0, 0.1);
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 { margin-bottom: 10px; font-size: 1.25rem; }
+        .feature-card p { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* --- UI SHOWCASE SECTION --- */
+        .showcase {
+            padding: 100px 5%;
+            background-color: var(--primary-black);
+            text-align: center;
+        }
+
+        .showcase-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+            align-items: flex-start; /* Penting agar item sejajar di atas */
+        }
+
+        .ui-item {
+            position: relative;
+            width: 280px; /* Lebar kita perbesar sedikit agar lebih jelas */
+            transition: transform 0.3s;
+        }
+
+        .ui-item:hover {
+            transform: translateY(-10px); /* Efek naik sedikit saat di-hover */
+        }
+
+        .ui-item img {
+            width: 100%;       /* Lebar mengikuti container (280px) */
+            height: auto;      /* Tinggi menyesuaikan otomatis (agar full & tidak gepeng) */
+            display: block;    /* Menghilangkan celah garis di bawah gambar */
+            border-radius: 24px; /* Sudut melengkung sesuai mockup HP modern */
+            border: 6px solid #1a1a1a; /* Frame tipis agar terlihat seperti HP */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); /* Bayangan agar timbul */
+        }
+
+        .ui-label {
+            margin-top: 20px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- STATS / ABOUT --- */
+        .stats {
+            padding: 60px 5%;
+            background: linear-gradient(90deg, #FFB300 0%, #FF9900 100%);
+            color: var(--primary-black);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .stat-item h2 { font-size: 2.5rem; font-weight: 800; }
+        .stat-item p { font-weight: 600; font-size: 1rem; text-transform: uppercase; }
+
+        /* --- FOOTER (ACADEMIC) --- */
+        footer {
+            background-color: #000;
+            padding: 50px 5%;
+            border-top: 1px solid #222;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-info h3 { color: var(--accent-orange); margin-bottom: 15px; }
+        .footer-info p { color: var(--text-gray); max-width: 300px; font-size: 0.9rem; }
+
+        .team-list h4 { color: #fff; margin-bottom: 15px; }
+        .team-list ul li {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 5px;
+        }
+        
+        .team-list span.nim { color: var(--accent-orange); font-weight: 600; }
+
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; justify-content: center; }
+            .hero-text { padding-right: 0; margin-bottom: 50px; }
+            .hero-buttons { justify-content: center; }
+            .hero h1 { font-size: 2.5rem; }
+            nav { flex-direction: column; gap: 20px; }
+            .footer-content { flex-direction: column; }
+            .team-list ul li { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+<nav>
+        <div class="logo">
+            <!-- Ganti src dengan nama file logo kamu -->
+            <!-- Pastikan logonya format PNG background transparan agar bagus di background hitam -->
+            <img src="assets/logo.jpg" alt="CarHub Logo">
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#features">Fitur</a></li>
+            <li><a href="#showcase">Tampilan</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+        </ul>
+        <a href="#" class="btn-download">Download App</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <h1>Find Your Grails.<br>Fuel Your <span>Passion</span>.</h1>
+            <p>CarHub adalah ekosistem diecast terlengkap. Temukan barang langka, menangkan lelang, dan wujudkan diecast impianmu dalam satu aplikasi.</p>
+            <div class="hero-buttons">
+<div class="hero-buttons">
+                <!-- Tombol App Store -->
+                <a href="#" class="store-btn">
+                    <i class="fab fa-apple"></i>
+                    <div class="store-text">
+                        <span>Download on the</span>
+                        <strong>App Store</strong>
+                    </div>
+                </a>
+                
+                <!-- Tombol Google Play -->
+                <a href="#" class="store-btn">
+                    <!-- Ganti 'playstore.png' dengan nama file logo Playstore kamu -->
+                    <img src="assets/playstore.png" alt="Google Play">
+                    <div class="store-text">
+                        <span>Get it on</span>
+                        <strong>Google Play</strong>
+                    </div>
+                </a>
+            </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="phone-mockup">
+                
+                <!-- Gunakan gambar screenshot Home Screen dari soal di sini -->
+                <div class="phone-screen" style="background-image: url('assets/home-screen.png'); background-size: cover;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <span>Core Features</span>
+            <h2>Lebih Dari Sekadar Marketplace</h2>
+            <p style="color: #888;">Kami membangun solusi untuk masalah utama para kolektor.</p>
+        </div>
+
+        <div class="features-grid">
+            <!-- Feature 1: Auction -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <h3>Auction Hub</h3>
+                <p>Sistem lelang otomatis, adil, dan transparan. Dilengkapi countdown timer real-time dan notifikasi tawaran tertinggi.</p>
+            </div>
+
+            <!-- Feature 2: Search -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Smart Filter</h3>
+                <p>Temukan diecast spesifik berdasarkan skala, merek, dan seri dalam hitungan detik. Tidak perlu lagi scrolling tanpa henti.</p>
+            </div>
+
+            <!-- Feature 3: Customization -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Customization Hub</h3>
+                <p>Wujudkan imajinasimu. Hubungkan diri dengan modifikator terbaik atau pamerkan hasil karya custom diecastmu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- UI SHOWCASE SECTION -->
+    <section class="showcase" id="showcase">
+        <div class="section-header">
+            <span>Interface Gallery</span>
+            <h2>Intuitif & Modern</h2>
+            <p style="color: #888;">Desain antarmuka Dark Mode yang nyaman dan premium.</p>
+        </div>
+
+        <div class="showcase-grid">
+            
+            <!-- Item 1: Auction Detail -->
+            <div class="ui-item">
+                <!-- Pastikan nama file gambar sesuai dengan file kamu -->
+                <img src="assets/auction-detail.png" alt="Auction Detail">
+                <div class="ui-label">Auction Detail</div>
+            </div>
+
+            <!-- Item 2: Custom Hub -->
+            <div class="ui-item">
+                <img src="assets/custom-hub.png" alt="Custom Hub">
+                <div class="ui-label">Custom Hub</div>
+            </div>
+
+            <!-- Item 3: Shopping Cart -->
+            <div class="ui-item">
+                <img src="assets/cart.png" alt="Shopping Cart">
+                <div class="ui-label">Shopping Cart</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STATS/TECH SECTION -->
+    <section class="stats">
+        <div class="stat-item">
+            <h2>Flutter</h2>
+            <p>Front-End</p>
+        </div>
+        <div class="stat-item">
+            <h2>Node.js</h2>
+            <p>Back-End</p>
+        </div>
+        <div class="stat-item">
+            <h2>PostgreSQL</h2>
+            <p>Database</p>
+        </div>
+        <div class="stat-item">
+            <h2>24/7</h2>
+            <p>Realtime Bidding</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>CARHUB</h3>
+                <p>Makalah UAS - Program Studi Teknik Informatika<br>Fakultas Teknologi Informasi<br>Universitas Tarumanagara</p>
+                <div style="margin-top: 20px; font-size: 2rem; color: #333;">
+                    <i class="fas fa-university"></i>
+                </div>
+            </div>
+
+            <div class="team-list">
+                <h4>Tim Pengembang</h4>
+                <ul>
+                    <li>Ricky Fernando JF <span class="nim">535220059</span></li>
+                    <li>Kent Dylan Sanjaya <span class="nim">535220063</span></li>
+                    <li>Devanska Uzieltama M. <span class="nim">535220089</span></li>
+                    <li>Vincent Wijaya <span class="nim">535220064</span></li>
+                    <li>Steven <span class="nim">535220091</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2025 CarHub Development Team. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
